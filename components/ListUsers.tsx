@@ -1,23 +1,32 @@
 "use client";
 import React, { useEffect, useState } from "react";
 
-import { Button, Divider, Table, Title, Group, Text, Center, Select } from "@mantine/core";
+import { Button, Divider, Table, Title, Group, Text, Center, Select, Alert, Skeleton } from "@mantine/core";
 
 import { useSetTokens } from "@/utils/requests/tokens";
 import { IconSquare, IconSquareCheck, IconTrash } from "@tabler/icons-react";
 
 import { useGetUsers } from "@/utils/requests/users";
 import { useGetNamedMPSK } from "@/utils/requests/namedMPSK";
+import ListUsersLoading from "./users/ListUsersLoading";
+import ListUsersTable from "./users/ListUsersTable";
+import ListUsersNoData from "./users/ListUsersNoData";
 
 export default function ListUsers() {
-  const { data: dataGetNamedMPSK } = useGetNamedMPSK();
+  const { data: dataGetNamedMPSK, status: statusNamedMPSK, isLoading: isLoadingNamedMPSK } = useGetNamedMPSK();
+  console.log("StatusMPSK:", statusNamedMPSK);
+  console.log("isLoadingMPSK:", isLoadingNamedMPSK);
+  console.log(dataGetNamedMPSK);
   //const { data: data2 } = useSetTokens();
 
   const [namedMPKSList, setNamedMPSKList] = useState<any>([]);
   const [selectedNamedMPSK, setSelectedNamedMPSK] = useState<any>();
 
-  const { data: data1 } = useGetUsers({ namedMPSK: selectedNamedMPSK });
+  const { data: data1, status: statusUsers, isLoading: isLoadingUsers } = useGetUsers({ namedMPSK: selectedNamedMPSK });
   //console.log(data1?.data?.items);
+
+  console.log("Status Users:", statusUsers);
+  console.log("Is LoadingUsers:", isLoadingUsers);
 
   useEffect(() => {
     if (dataGetNamedMPSK?.data?.items) {
@@ -34,6 +43,10 @@ export default function ListUsers() {
       //console.log(dataGetNamedMPSK?.data?.items);
     }
   }, [dataGetNamedMPSK]);
+
+  if (isLoadingUsers && statusUsers == "pending") {
+    // return <ListUsersLoading />;
+  }
 
   return (
     <>
@@ -56,6 +69,17 @@ export default function ListUsers() {
           }
         }}
       />
+
+      {isLoadingUsers && statusUsers == "pending" && (
+        <>
+          <Skeleton height={20} radius="sm" />
+          <Skeleton height={20} mt={6} width="70%" radius="sm" />
+          <Skeleton height={20} mt={6} width="90%" radius="sm" />
+        </>
+      )}
+      {!isLoadingUsers && statusUsers == "success" && data1?.data?.items?.length > 0 && <ListUsersTable dataUsers={data1} />}
+      {!isLoadingUsers && statusUsers == "success" && data1?.data?.items?.length == 0 && <ListUsersNoData />}
+      {/*
       <Table withColumnBorders withRowBorders withTableBorder>
         <Table.Thead>
           <Table.Tr>
@@ -93,6 +117,7 @@ export default function ListUsers() {
             ))}
         </Table.Tbody>
       </Table>
+      */}
     </>
   );
 }
