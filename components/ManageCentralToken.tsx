@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from "react";
 import { useSetTokens, useGetTokens } from "@/utils/requests/tokens";
 import { Button, Divider, Grid, Group, Stack, TextInput, Textarea, Title } from "@mantine/core";
+import { IconDeviceFloppy } from "@tabler/icons-react";
 
 export default function ManageCentralToken() {
   const { mutateAsync } = useSetTokens();
@@ -72,17 +73,14 @@ export default function ManageCentralToken() {
         <Grid.Col span={3}>
           <Stack gap="sm">
             <TextInput label="Client Id" placeholder="Client Id" defaultValue={clientId} size="xs" onChange={(e) => setClientId(e.target.value)} />
+          </Stack>
+        </Grid.Col>
+        <Grid.Col span={3}>
+          <Stack gap="sm">
             <TextInput label="Client Secret" placeholder="Client Secret" defaultValue={clientSecret} size="xs" onChange={(e) => setClientSecret((e.target as HTMLInputElement).value)} />
           </Stack>
-          {/*
-          Client id: {clientId}
-          <br />
-          Client secret: {clientSecret}
-          <br />
-          Tokens Parameters:{JSON.stringify(tokensParams)}
-          {centralURL}
-          */}
         </Grid.Col>
+        <Grid.Col span={6}></Grid.Col>
         <Grid.Col span={9}>
           <Textarea
             label="Tokens parameters"
@@ -91,22 +89,23 @@ export default function ManageCentralToken() {
             value={JSON.stringify(tokensParams)}
             onChange={(e) => tryParseJSONTokenParameters((e.currentTarget as HTMLTextAreaElement).value)}
             rows={4}
-            style={{ width: "80%" }}
+            style={{ width: "100%" }}
           />
         </Grid.Col>
+        <Grid.Col span={3}></Grid.Col>
         <Grid.Col span={6}>
           <TextInput label="Aruba Central Base URL" placeholder="Aruba Central Base Id" size="xs" value={centralURL} onChange={(e) => setCentralURL((e.target as HTMLInputElement).value)} />
         </Grid.Col>
         <Grid.Col span={6}></Grid.Col>
-        <Grid.Col span={2}>
+        <Grid.Col span={3}>
           <TextInput label="Guest SSID" placeholder="Guest SSID" size="xs" value={guestSSID} onChange={(e) => setGuestSSID((e.target as HTMLInputElement).value)} />
         </Grid.Col>
-        <Grid.Col span={2}>
+        <Grid.Col span={3}>
           <TextInput label="Guest Role" placeholder="Guest Role" size="xs" value={guestRole} onChange={(e) => setGuestRole((e.target as HTMLInputElement).value)} />
         </Grid.Col>
       </Grid>
-      <Button mt="sm" variant="default" size="xs" onClick={() => saveTokenData()} fullWidth={false}>
-        Save Token
+      <Button mt="md" variant="default" size="xs" onClick={() => saveTokenData()} fullWidth={false} leftSection={<IconDeviceFloppy size="1rem" stroke={1.5} />}>
+        Save Configuration
       </Button>
     </>
   );
