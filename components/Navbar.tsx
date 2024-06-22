@@ -6,7 +6,6 @@ import { usePathname } from "next/navigation";
 
 export default function Navbar() {
   const pathname = usePathname();
-  console.log(pathname);
   return (
     <>
       <NavLink href="/config" label="Aruba Central Tokens" leftSection={<IconSettings size="1rem" stroke={1.5} />} component={Link} active={pathname == "/config"} />
