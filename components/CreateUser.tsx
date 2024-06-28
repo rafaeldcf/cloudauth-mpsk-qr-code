@@ -4,6 +4,10 @@ import Qr from "./Qr";
 import { Card, Grid, Group, TextInput, Text, Center, Button, Stack, Title, Divider, Select } from "@mantine/core";
 import { useGetNamedMPSK } from "@/utils/requests/namedMPSK";
 import { useGetTokens } from "@/utils/requests/tokens";
+import { IconUserPlus } from "@tabler/icons-react";
+import QrSkeleton from "./newUser/QrSkeleton";
+import { useCreateUser } from "@/utils/requests/users";
+import ErrorUser from "./newUser/ErrorUser";
 
 export default function CreateUser() {
   const { data: dataGetNamedMPSK } = useGetNamedMPSK();
@@ -13,8 +17,12 @@ export default function CreateUser() {
   const [username, setUsername] = useState("");
   const [namedMPKSList, setNamedMPSKList] = useState<any>([]);
   const [selectedNamedMPSK, setSelectedNamedMPSK] = useState<any>();
+  const [isError, setIsError] = useState(false);
+  const [errorData, setErrorData] = useState();
 
   const { data: dataGetCookies } = useGetTokens();
+
+  const { mutateAsync: mutateAsyncCreateUser, status: statusCreateUser, isPending: isPendingCreateUser } = useCreateUser();
 
   useEffect(() => {
     if (dataGetNamedMPSK?.data?.items) {
@@ -41,17 +49,21 @@ export default function CreateUser() {
         status: "enabled",
       },
     };
-    const staticData = await fetch("/api/central/users", { method: "POST", body: JSON.stringify(body) });
-    const salida = await staticData.json();
-    if (salida.data?.mpsk) {
-      setPassword(salida.data.mpsk);
-      setCreatedUser(salida.data);
+
+    const resultado = await mutateAsyncCreateUser({ body: body });
+    if (resultado.data.errorCode) {
+      setIsError(true);
+      setErrorData(resultado.data);
+    } else {
+      setPassword(resultado.data.mpsk);
+      setCreatedUser(resultado.data);
     }
   };
 
   return (
     <>
-      <Group justify="space-between">
+      <Group gap="xs">
+        <IconUserPlus size="1.2rem" stroke={1.5} />
         <Title order={3}>New User</Title>
       </Group>
       <Divider mt={0} mb="sm" />
@@ -61,6 +73,7 @@ export default function CreateUser() {
           <Card withBorder>
             <Stack justify="space-between" mb="xs">
               <Text fw={500}>Create user</Text>
+              {statusCreateUser}
               <Select
                 style={{ width: "200px" }}
                 size="sm"
@@ -75,12 +88,14 @@ export default function CreateUser() {
                 }}
               />
               <TextInput size="sm" label="User email" defaultValue={username} onChange={(e) => setUsername(e.target.value)} />
-              <Button onClick={() => createMPSK()}>Create User</Button>
+              <Button onClick={() => createMPSK()} disabled={isPendingCreateUser}>
+                Create User
+              </Button>
             </Stack>
           </Card>
         </Grid.Col>
         <Grid.Col span={6}>
-          {password && (
+          {password && !isError && (
             <Card withBorder>
               <Group justify="space-between" mb="xs">
                 <Text fw={500}>User created</Text>
@@ -94,6 +109,8 @@ export default function CreateUser() {
               </Center>
             </Card>
           )}
+          {statusCreateUser == "pending" && <QrSkeleton />}
+          {isError && <ErrorUser error_data={errorData} />}
         </Grid.Col>
       </Grid>
     </>
