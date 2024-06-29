@@ -1,4 +1,5 @@
 import { useQuery, useMutation } from "@tanstack/react-query";
+import { NextResponse } from "next/server";
 export function useSetTokens() {
   return useMutation({
     mutationFn: ({ inputData }: { inputData: any }) => {
@@ -24,6 +25,7 @@ export function useGetTokens() {
       }
 
       return response.json();
+      //return NextResponse.json(response);
     },
   });
 }

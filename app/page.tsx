@@ -15,6 +15,7 @@ const queryClient = new QueryClient();
 export default function Home() {
   return (
     <>
+      Configure settings
       {/*
         <MainLayout />
         */}
