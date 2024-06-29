@@ -8,7 +8,7 @@ export type cookieData = {
   central_url?: string;
 };
 
-export function getCookies(): cookieData | null {
+export function getCookies() {
   /*
   const cookieName = "central-auth-token";
 
@@ -20,6 +20,7 @@ export function getCookies(): cookieData | null {
   const credentials = JSON.parse(tokens) as cookieData;
   //console.log("credentials:", credentials);
   return credentials;
-  */
+  
   return "";
+  */
 }
