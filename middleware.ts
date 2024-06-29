@@ -1,12 +1,6 @@
 import { NextResponse } from "next/server";
 import type { NextRequest, NextFetchEvent } from "next/server";
-//import { getCookies } from "./components/getCookies";
 import { cookies } from "next/headers";
-
-import { useRenewCentralTokens } from "@/utils/requests/centralTokens";
-
-const MAX_TIME_REFRESH = 15 * 60;
-//const MAX_TIME_REFRESH = 0;
 
 export async function middleware(request: NextRequest, event: NextFetchEvent) {
   {
@@ -110,6 +104,7 @@ export const config = {
   //matcher: ["/((?!.*\\.webmanifest|_next/static|_next/image|.*\\.png$).*)"],
 };
 
+/*
 async function refresh(inputData: any) {
   const refreshToken = async () => {
     const response = await fetch(process.env.WEB_URL + "/api/central/tokens", { method: "POST", body: JSON.stringify(inputData) });
@@ -117,3 +112,4 @@ async function refresh(inputData: any) {
   };
   return refreshToken();
 }
+*/
