@@ -28,6 +28,7 @@ In the menu Aruba Central Token you will need to write:
 ## To-Be done
 
 The code could be improved with more error handilings. There are other things to do, for example:
-[ ] The SSID could be read from Aruba Central (currently it's manual).
-[ ] User Roles could be read from Aruba Central, avoiding typos in the field.
-[ ] Auto-refresh tokens while you are in the page. It would be implemented in the middleware file.
+
+- [ ] The SSID could be read from Aruba Central (currently it's manual).
+- [ ] User Roles could be read from Aruba Central, avoiding typos in the field.
+- [] Auto-refresh tokens while you are in the page. It would be implemented in the middleware file.
