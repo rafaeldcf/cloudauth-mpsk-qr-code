@@ -6,11 +6,14 @@ import { icons } from "@tabler/icons-react";
 
 export const metadata = {
   title: "CloudAuth - MPSK",
-  description: "Demo: Aruba CloudAuth MPSK with QR Code",
+  description: "Demo: Aruba Central CloudAuth integration using MPSK with QR Code",
   icons: {
     icon: "/icon.png",
     apple: "/apple-touch-icon.png",
   },
+  creator: "Rafael del Cerro Flores",
+  publisher: "Rafael del Cerro Flores",
+  keywords: ["Next.js", "React", "JavaScript", "Aruba Central", "Aruba", "MPSK"],
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
