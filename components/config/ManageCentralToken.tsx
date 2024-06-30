@@ -180,12 +180,14 @@ export default function ManageCentralToken() {
           Rest-API configuration to integrate Aruba Central. All information it´s available in your Aruba Central account: Global Settings &rarr; Organization &rarr; Platform Integration &rarr; Rest
           API.
         </Text>
+
         <Text size="sm">Tokens parameters should be in the format: </Text>
         <Text bg="gray.0" p={5} size="sm">
           &#123; &#x22;access_token&#x22;:&#x22;xxxxx&#x22;, &#x22;appname&#x22;:&#x22;nms&#x22;, &#x22;authenticated_userid&#x22;:&#x22;xxxxx&#x22;, &#x22;created_at&#x22;:xxxxx,
           &#x22;credential_id&#x22;:&#x22;xxxxx&#x22;, &#x22;expires_in&#x22;:xxxxx, &#x22;id&#x22;:&#x22;xxxxx&#x22;, &#x22;refresh_token&#x22;:&#x22;xxxxx&#x22;, &#x22;scope&#x22;:&#x22;all&#x22;,
           &#x22;token_type&#x22;:&#x22;bearer&#x22; &#125;
         </Text>
+        <Text size="sm">The Aruba Central Base URL should be in this format replacing it with your own: https://xxxxx-apigw.central.arubanetworks.com</Text>
       </Alert>
       <Card withBorder padding="sm" className={classes.card}>
         <Grid>
