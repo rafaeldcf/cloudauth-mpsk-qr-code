@@ -7,6 +7,8 @@ import ProgressBar from "./ProgressBar";
 import { useRenewCentralTokens } from "@/utils/requests/centralTokens";
 import Cookies from "js-cookie";
 
+import { useRouter } from "next/navigation";
+
 interface tokensparams {
   access_token?: string;
   appname?: string;
@@ -44,6 +46,8 @@ export default function ManageCentralToken() {
   const [testResult, setTestResult] = useState<tokensparams>();
 
   const { mutateAsync: mutateAsyncRenewCentralToken } = useRenewCentralTokens();
+
+  const router = useRouter();
 
   useEffect(() => {
     setProgressValue((clientId ? 25 : 0) + (clientSecret ? 25 : 0) + (tokensParams?.access_token ? 25 : 0) + (centralURL ? 25 : 0));
@@ -132,6 +136,7 @@ export default function ManageCentralToken() {
       temp.guest_ssid = guestSSID;
       //setTokensParams(temp);
       Cookies.set("central-auth-token", JSON.stringify(temp));
+      router.refresh();
     }
   };
 
