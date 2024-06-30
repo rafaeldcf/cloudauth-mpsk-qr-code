@@ -3,12 +3,10 @@ import React, { useEffect, useState } from "react";
 
 import { Button, Divider, Table, Title, Group, Text, Center, Select, Alert, Skeleton, Grid, Loader } from "@mantine/core";
 
-import { useSetTokens } from "@/utils/requests/tokens";
 import { IconSquare, IconSquareCheck, IconTrash, IconUser, IconUsers } from "@tabler/icons-react";
 
 import { useGetUsers } from "@/utils/requests/users";
 import { useGetNamedMPSK } from "@/utils/requests/namedMPSK";
-import ListUsersLoading from "./users/ListUsersLoading";
 import ListUsersTable from "./users/ListUsersTable";
 import ListUsersNoData from "./users/ListUsersNoData";
 
@@ -19,8 +17,6 @@ interface listError {
 
 export default function ListUsers() {
   const { data: dataGetNamedMPSK, status: statusNamedMPSK, isLoading: isLoadingNamedMPSK }: { data: any; status: any; isLoading: any } = useGetNamedMPSK();
-
-  //const { data: data2 } = useSetTokens();
 
   const [namedMPKSList, setNamedMPSKList] = useState<any>([]);
   const [selectedNamedMPSK, setSelectedNamedMPSK] = useState<any>();

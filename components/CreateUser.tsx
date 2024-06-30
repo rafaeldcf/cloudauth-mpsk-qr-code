@@ -3,7 +3,6 @@ import React, { useEffect, useState } from "react";
 import Qr from "./Qr";
 import { Card, Grid, Group, TextInput, Text, Center, Button, Stack, Title, Divider, Select, Alert } from "@mantine/core";
 import { useGetNamedMPSK } from "@/utils/requests/namedMPSK";
-import { useGetTokens } from "@/utils/requests/tokens";
 import { IconUserPlus } from "@tabler/icons-react";
 import QrSkeleton from "./newUser/QrSkeleton";
 import { useCreateUser } from "@/utils/requests/users";
@@ -36,8 +35,6 @@ export default function CreateUser() {
   const [listError, setListError] = useState<listError>();
   const [guestSSID, setGuestSSID] = useState("");
   const [guestRole, setGuestRole] = useState("");
-
-  const { data: dataGetCookies } = useGetTokens();
 
   const { mutateAsync: mutateAsyncCreateUser, status: statusCreateUser, isPending: isPendingCreateUser } = useCreateUser();
 

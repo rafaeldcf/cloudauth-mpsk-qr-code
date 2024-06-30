@@ -1,6 +1,5 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { useSetTokens, useGetTokens } from "@/utils/requests/tokens";
 import { Button, Divider, Grid, Group, Stack, TextInput, Textarea, Title, Text, Card, Center, Alert, Code } from "@mantine/core";
 import { IconDeviceFloppy, IconInfoCircle, IconSettings } from "@tabler/icons-react";
 import classes from "./styles.module.scss";
@@ -34,7 +33,6 @@ interface cookieData {
 }
 
 export default function ManageCentralToken() {
-  const { mutateAsync } = useSetTokens();
   const [clientId, setClientId] = useState("");
   const [clientSecret, setClientSecret] = useState("");
   const [tokensParams, setTokensParams] = useState<tokensparams>({});
@@ -44,8 +42,6 @@ export default function ManageCentralToken() {
   const [progressValue, setProgressValue] = useState((clientId ? 25 : 0) + (clientSecret ? 25 : 0) + (tokensParams?.access_token ? 25 : 0) + (centralURL ? 25 : 0));
 
   const [testResult, setTestResult] = useState<tokensparams>();
-
-  //const { data } = useGetTokens();
 
   const { mutateAsync: mutateAsyncRenewCentralToken } = useRenewCentralTokens();
 
