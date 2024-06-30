@@ -19,8 +19,8 @@ export default function ProgressBar({ value, testResult }: { value: number; test
     <>
       {value < 100 ? (
         <RingProgress
-          size={200}
-          thickness={20}
+          size={130}
+          thickness={15}
           sections={[{ value: value, color: currentColor }]}
           label={
             <Text c="blue" fw={700} ta="center" size="xl">
@@ -30,8 +30,8 @@ export default function ProgressBar({ value, testResult }: { value: number; test
         />
       ) : (
         <RingProgress
-          size={200}
-          thickness={20}
+          size={130}
+          thickness={15}
           sections={[{ value: 100, color: currentColor }]}
           label={
             <Center>

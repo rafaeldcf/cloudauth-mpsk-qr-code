@@ -66,7 +66,6 @@ export default function ManageCentralToken() {
   useEffect(() => {
     if (lectureCookies && isJsonString(lectureCookies)) {
       const cookieJSON = JSON.parse(lectureCookies);
-      console.log(cookieJSON);
       if (cookieJSON.tokens_params) {
         setTokensParams(cookieJSON.tokens_params);
       }
@@ -100,19 +99,6 @@ export default function ManageCentralToken() {
     }
   };
 
-  const saveTokenData = async () => {
-    const inputData = {
-      client_id: clientId,
-      client_secret: clientSecret,
-      tokens_params: tokensParams,
-      central_url: centralURL,
-      guest_ssid: guestSSID,
-      guest_role: guestRole,
-    };
-    const result = await mutateAsync({ inputData: inputData });
-    console.log(result.status);
-  };
-
   const saveFormState = async (field: string, value: string) => {
     if (field == "clientid") {
       setClientId(value);
@@ -120,7 +106,6 @@ export default function ManageCentralToken() {
   };
 
   const test = async () => {
-    console.log("Probando conectividad");
     const inputData = {
       isTesting: true,
       central_url: centralURL,
@@ -143,7 +128,6 @@ export default function ManageCentralToken() {
         central_url: centralURL,
         tokens_params: tempParams,
       };
-      console.log(temp);
 
       if (resultado.expires_in == 7200) {
         temp.tokens_params.created_at = Date.now();
@@ -153,8 +137,6 @@ export default function ManageCentralToken() {
       //setTokensParams(temp);
       Cookies.set("central-auth-token", JSON.stringify(temp));
     }
-
-    console.log("Client result:", resultado);
   };
 
   const saveData2 = async () => {
@@ -164,7 +146,6 @@ export default function ManageCentralToken() {
       cookieJSON.guest_role = guestRole;
       cookieJSON.guest_ssid = guestSSID;
       Cookies.set("central-auth-token", JSON.stringify(cookieJSON));
-      console.log("saving2:", cookieJSON);
     }
   };
 
@@ -203,7 +184,9 @@ export default function ManageCentralToken() {
                   <TextInput label="Client Secret" placeholder="Client Secret" defaultValue={clientSecret} size="xs" onChange={(e) => setClientSecret((e.target as HTMLInputElement).value)} />
                 </Stack>
               </Grid.Col>
-              <Grid.Col span={4}></Grid.Col>
+              <Grid.Col span={4}>
+                <TextInput label="Aruba Central Base URL" placeholder="Aruba Central Base Id" size="xs" value={centralURL} onChange={(e) => setCentralURL((e.target as HTMLInputElement).value)} />
+              </Grid.Col>
               <Grid.Col span={12}>
                 <Textarea
                   label="Tokens parameters"
@@ -215,21 +198,22 @@ export default function ManageCentralToken() {
                   style={{ width: "100%" }}
                 />
               </Grid.Col>
+              {/*
+                
               <Grid.Col span={9}>
                 <TextInput label="Aruba Central Base URL" placeholder="Aruba Central Base Id" size="xs" value={centralURL} onChange={(e) => setCentralURL((e.target as HTMLInputElement).value)} />
               </Grid.Col>
               <Grid.Col span={3}></Grid.Col>
+              */}
             </Grid>
           </Grid.Col>
           <Grid.Col span={3}>
-            <Center>
-              <Stack>
-                <ProgressBar value={progressValue} testResult={testResult} />
-                <Button size="sm" onClick={() => test()} variant="primary" leftSection={<IconDeviceFloppy stroke={2} size={20} />}>
-                  Test & Save Data
-                </Button>
-              </Stack>
-            </Center>
+            <Stack align="center">
+              <ProgressBar value={progressValue} testResult={testResult} />
+              <Button size="sm" onClick={() => test()} variant="primary" leftSection={<IconDeviceFloppy stroke={2} size={20} />}>
+                Test & Save Data
+              </Button>
+            </Stack>
           </Grid.Col>
           <Grid.Col span={12}>
             {testResult?.error && (

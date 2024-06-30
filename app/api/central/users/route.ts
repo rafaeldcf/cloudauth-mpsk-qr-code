@@ -13,7 +13,6 @@ export async function GET(request: Request) {
     const cookieValue = lecturaCookies?.value!;
     const cookieJson = JSON.parse(cookieValue);
 
-    console.log("Users CookiesData:", cookieJson);
     if (cookieJson?.tokens_params.access_token) {
       //console.log(cookiesData.central_url);
       //const namedMPSK = request.named_mpsk;
