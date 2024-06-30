@@ -5,7 +5,7 @@ import { IconSettings, IconUser, IconUserPlus } from "@tabler/icons-react";
 import { usePathname } from "next/navigation";
 import Cookies from "js-cookie";
 
-export default function Navbar() {
+export default function Navbar({ toggle }: { toggle: any }) {
   const [existsCookies, setExistsCookies] = useState(false);
   const pathname = usePathname();
 
@@ -20,9 +20,38 @@ export default function Navbar() {
 
   return (
     <>
-      <NavLink href="/config" label="Aruba Central Tokens" leftSection={<IconSettings size="1rem" stroke={1.5} />} component={Link} active={pathname == "/config"} />
-      <NavLink disabled={!existsCookies} href="/users" label="Users" leftSection={<IconUser size="1rem" stroke={1.5} />} component={Link} active={pathname == "/users"} />
-      <NavLink disabled={!existsCookies} href="/new" label="New User" leftSection={<IconUserPlus size="1rem" stroke={1.5} />} component={Link} active={pathname == "/new"} />
+      <NavLink
+        href="/config"
+        label="Aruba Central Tokens"
+        leftSection={<IconSettings size="1rem" stroke={1.5} />}
+        component={Link}
+        active={pathname == "/config"}
+        onClick={() => {
+          toggle();
+        }}
+      />
+      <NavLink
+        disabled={!existsCookies}
+        href="/users"
+        label="Users"
+        leftSection={<IconUser size="1rem" stroke={1.5} />}
+        component={Link}
+        active={pathname == "/users"}
+        onClick={() => {
+          toggle();
+        }}
+      />
+      <NavLink
+        disabled={!existsCookies}
+        href="/new"
+        label="New User"
+        leftSection={<IconUserPlus size="1rem" stroke={1.5} />}
+        component={Link}
+        active={pathname == "/new"}
+        onClick={() => {
+          toggle();
+        }}
+      />
     </>
   );
 }
