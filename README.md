@@ -3,6 +3,13 @@
 This is a demo-project of integration with Aruba Central to generate users using CloudAuth with MPSK and a QR Code.
 Aruba Central allow you to create a MPSK SSID and every user will have a custom PSK and it will be easy to connect with a QR Code.
 
+
+<img src="assets/images/main-page.jpg"  />
+<img src="assets/images/settings.jpg" />
+<img src="assets/images/composition.jpg" />
+
+
+
 ## Current options
 
 - Configuration of Aruba Central integration with Rest-API parameters.
