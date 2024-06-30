@@ -1,8 +1,8 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import { useSetTokens, useGetTokens } from "@/utils/requests/tokens";
-import { Button, Divider, Grid, Group, Stack, TextInput, Textarea, Title, Text, Card, Center, Alert } from "@mantine/core";
-import { IconDeviceFloppy, IconSettings } from "@tabler/icons-react";
+import { Button, Divider, Grid, Group, Stack, TextInput, Textarea, Title, Text, Card, Center, Alert, Code } from "@mantine/core";
+import { IconDeviceFloppy, IconInfoCircle, IconSettings } from "@tabler/icons-react";
 import classes from "./styles.module.scss";
 import ProgressBar from "./ProgressBar";
 import { useRenewCentralTokens } from "@/utils/requests/centralTokens";
@@ -175,7 +175,18 @@ export default function ManageCentralToken() {
         <Title order={3}>Aruba Central Configuration</Title>
       </Group>
       <Divider mt={0} mb="sm" />
-
+      <Alert title="API Configuration" icon={<IconInfoCircle />} variant="light" color="green" p="sm" radius="md" mb="sm">
+        <Text size="sm">
+          Rest-API configuration to integrate Aruba Central. All information it´s available in your Aruba Central account: Global Settings &rarr; Organization &rarr; Platform Integration &rarr; Rest
+          API.
+        </Text>
+        <Text size="sm">Tokens parameters should be in the format: </Text>
+        <Text bg="gray.0" p={5} size="sm">
+          &#123; &#x22;access_token&#x22;:&#x22;xxxxx&#x22;, &#x22;appname&#x22;:&#x22;nms&#x22;, &#x22;authenticated_userid&#x22;:&#x22;xxxxx&#x22;, &#x22;created_at&#x22;:xxxxx,
+          &#x22;credential_id&#x22;:&#x22;xxxxx&#x22;, &#x22;expires_in&#x22;:xxxxx, &#x22;id&#x22;:&#x22;xxxxx&#x22;, &#x22;refresh_token&#x22;:&#x22;xxxxx&#x22;, &#x22;scope&#x22;:&#x22;all&#x22;,
+          &#x22;token_type&#x22;:&#x22;bearer&#x22; &#125;
+        </Text>
+      </Alert>
       <Card withBorder padding="sm" className={classes.card}>
         <Grid>
           <Grid.Col span={9}>
