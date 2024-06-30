@@ -14,7 +14,7 @@ export default function Qr({ password, guestSSID }: { password: any; guestSSID: 
         scale: 5,
         width: 250,
         color: {
-          dark: "#010599FF",
+          dark: "#428CDF",
           light: "#ffffff",
         },
       }}

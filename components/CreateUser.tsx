@@ -146,7 +146,7 @@ export default function CreateUser() {
               </Group>
               <Text>User Name: {createdUser?.name}</Text>
               <Text>Status: {createdUser?.status}</Text>
-              <Text>Red WiFi: {guestSSID}</Text>
+              <Text>WiFi Network: {guestSSID}</Text>
               <Text>Access Code: {password}</Text>
               <Center>
                 <Qr password={password} guestSSID={guestSSID} />
