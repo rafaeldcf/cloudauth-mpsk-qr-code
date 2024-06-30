@@ -6,7 +6,6 @@ export default function ProgressBar({ value, testResult }: { value: number; test
   const [currentColor, setCurrentColor] = useState("yellow");
 
   useEffect(() => {
-    console.log(testResult);
     if (testResult?.error) {
       setCurrentColor("red");
     } else if (value > 99 && testResult) {

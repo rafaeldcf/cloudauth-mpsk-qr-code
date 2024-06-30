@@ -99,8 +99,6 @@ export default function CreateUser() {
     }
   };
 
-  console.log(statusCreateUser);
-
   return (
     <>
       <Group gap="xs">

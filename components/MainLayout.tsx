@@ -21,12 +21,12 @@ export default function MainLayout({ children }: { children: React.ReactNode }) 
               </Text>
             </Center>
           </Anchor>
-          <Anchor underline="never" href="https://github.com/rafaeldcf/cloudauth-mpsk-qr-code" target="_blank">
-            <Center color="none">
-              <ActionIcon variant="outline" radius="xl" aria-label="Settings" mr="xs">
-                <IconBrandGithub size={20} stroke={1.8} />{" "}
+          <Anchor underline="never" href="https://github.com/rafaeldcf/cloudauth-mpsk-qr-code" target="_blank" c="gray">
+            <Center>
+              <ActionIcon variant="outline" radius="xl" aria-label="Settings" mr="xs" color="gray">
+                <IconBrandGithub size={20} stroke={2} color="gray" />{" "}
               </ActionIcon>
-              Github Repository
+              <Text fw={600}>Github Repository</Text>
             </Center>
           </Anchor>
         </Group>

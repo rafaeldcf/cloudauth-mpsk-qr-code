@@ -13,8 +13,8 @@ import ListUsersTable from "./users/ListUsersTable";
 import ListUsersNoData from "./users/ListUsersNoData";
 
 interface listError {
-  error: string;
-  error_description: string;
+  error?: string;
+  error_description?: string;
 }
 
 export default function ListUsers() {
@@ -24,7 +24,7 @@ export default function ListUsers() {
 
   const [namedMPKSList, setNamedMPSKList] = useState<any>([]);
   const [selectedNamedMPSK, setSelectedNamedMPSK] = useState<any>();
-  const [listError, setListErro] = useState<listError>();
+  const [listError, setListError] = useState<listError>();
 
   const { data: data1, status: statusUsers, isLoading: isLoadingUsers } = useGetUsers({ namedMPSK: selectedNamedMPSK });
   //console.log(data1?.data?.items);
@@ -33,9 +33,10 @@ export default function ListUsers() {
     //console.log(dataGetNamedMPSK);
     if (dataGetNamedMPSK?.error) {
       console.log("hay que tratar renovar el token");
-      setListErro(dataGetNamedMPSK);
+      setListError(dataGetNamedMPSK);
     } else {
       if (dataGetNamedMPSK?.items) {
+        setListError({});
         var sal: any = [];
         dataGetNamedMPSK?.items.map((item: any) => {
           let itemNuevo = { value: item.id, label: item.ssid };
