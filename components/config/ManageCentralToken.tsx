@@ -173,19 +173,19 @@ export default function ManageCentralToken() {
       </Alert>
       <Card withBorder padding="sm" className={classes.card}>
         <Grid>
-          <Grid.Col span={9}>
+          <Grid.Col span={{ base: 12, md: 9 }}>
             <Grid>
-              <Grid.Col span={4}>
+              <Grid.Col span={{ base: 12, lg: 4 }}>
                 <Stack gap="sm">
                   <TextInput label="Client Id" placeholder="Client Id" defaultValue={clientId} size="xs" onChange={(e) => saveFormState("clientid", e.target.value)} />
                 </Stack>
               </Grid.Col>
-              <Grid.Col span={4}>
+              <Grid.Col span={{ base: 12, lg: 4 }}>
                 <Stack gap="sm">
                   <TextInput label="Client Secret" placeholder="Client Secret" defaultValue={clientSecret} size="xs" onChange={(e) => setClientSecret((e.target as HTMLInputElement).value)} />
                 </Stack>
               </Grid.Col>
-              <Grid.Col span={4}>
+              <Grid.Col span={{ base: 12, lg: 4 }}>
                 <TextInput label="Aruba Central Base URL" placeholder="Aruba Central Base Id" size="xs" value={centralURL} onChange={(e) => setCentralURL((e.target as HTMLInputElement).value)} />
               </Grid.Col>
               <Grid.Col span={12}>
@@ -208,7 +208,7 @@ export default function ManageCentralToken() {
               */}
             </Grid>
           </Grid.Col>
-          <Grid.Col span={3}>
+          <Grid.Col span={{ base: 12, md: 3 }}>
             <Stack align="center">
               <ProgressBar value={progressValue} testResult={testResult} />
               <Button size="sm" onClick={() => test()} variant="primary" leftSection={<IconDeviceFloppy stroke={2} size={20} />}>

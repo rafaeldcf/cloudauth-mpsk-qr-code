@@ -105,7 +105,7 @@ export default function CreateUser() {
       <Divider mt={0} mb="sm" />
 
       <Grid>
-        <Grid.Col span={4}>
+        <Grid.Col span={{ base: 12, md: 4 }}>
           <Card withBorder>
             <Stack justify="space-between" mb="xs">
               <Text fw={500}>Create user</Text>
@@ -135,7 +135,7 @@ export default function CreateUser() {
             </Stack>
           </Card>
         </Grid.Col>
-        <Grid.Col span={6}>
+        <Grid.Col span={{ base: 12, md: 6 }}>
           {password && !isError && (
             <Card withBorder>
               <Group justify="space-between" mb="xs">
