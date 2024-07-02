@@ -3,6 +3,7 @@ import { ColorSchemeScript, MantineProvider } from "@mantine/core";
 import { ReactQueryClientProvider } from "@/components/ReactQueryClientProvider";
 import MainLayout from "@/components/MainLayout";
 import { icons } from "@tabler/icons-react";
+import { Analytics } from "@vercel/analytics/react";
 
 export const metadata = {
   title: "CloudAuth - MPSK",
@@ -25,7 +26,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         </head>
         <body>
           <MantineProvider>
-            <MainLayout>{children}</MainLayout>
+            <MainLayout>
+              {children}
+              <Analytics />
+            </MainLayout>
           </MantineProvider>
         </body>
       </html>
