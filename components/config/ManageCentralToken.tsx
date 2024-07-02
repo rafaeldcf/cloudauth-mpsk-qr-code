@@ -1,6 +1,6 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { Button, Divider, Grid, Group, Stack, TextInput, Textarea, Title, Text, Card, Center, Alert, Code } from "@mantine/core";
+import { Button, Divider, Grid, Group, Stack, TextInput, Textarea, Title, Text, Card, Center, Alert, Code, List } from "@mantine/core";
 import { IconDeviceFloppy, IconInfoCircle, IconSettings } from "@tabler/icons-react";
 import classes from "./styles.module.scss";
 import ProgressBar from "./ProgressBar";
@@ -163,13 +163,20 @@ export default function ManageCentralToken() {
           API.
         </Text>
 
-        <Text size="sm">Tokens parameters should be in the format: </Text>
-        <Text bg="gray.0" p={5} size="sm">
-          &#123; &#x22;access_token&#x22;:&#x22;xxxxx&#x22;, &#x22;appname&#x22;:&#x22;nms&#x22;, &#x22;authenticated_userid&#x22;:&#x22;xxxxx&#x22;, &#x22;created_at&#x22;:xxxxx,
-          &#x22;credential_id&#x22;:&#x22;xxxxx&#x22;, &#x22;expires_in&#x22;:xxxxx, &#x22;id&#x22;:&#x22;xxxxx&#x22;, &#x22;refresh_token&#x22;:&#x22;xxxxx&#x22;, &#x22;scope&#x22;:&#x22;all&#x22;,
-          &#x22;token_type&#x22;:&#x22;bearer&#x22; &#125;
-        </Text>
-        <Text size="sm">The Aruba Central Base URL should be in this format replacing it with your own: https://xxxxx-apigw.central.arubanetworks.com</Text>
+        <List size="sm">
+          <List.Item>Tokens parameters should be in the following format:</List.Item>
+          <Text bg="white.0" p={5} size="sm">
+            &#123; &#x22;access_token&#x22;:&#x22;xxxxx&#x22;, &#x22;appname&#x22;:&#x22;nms&#x22;, &#x22;authenticated_userid&#x22;:&#x22;xxxxx&#x22;, &#x22;created_at&#x22;:xxxxx,
+            &#x22;credential_id&#x22;:&#x22;xxxxx&#x22;, &#x22;expires_in&#x22;:xxxxx, &#x22;id&#x22;:&#x22;xxxxx&#x22;, &#x22;refresh_token&#x22;:&#x22;xxxxx&#x22;, &#x22;scope&#x22;:&#x22;all&#x22;,
+            &#x22;token_type&#x22;:&#x22;bearer&#x22; &#125;
+          </Text>
+          <List.Item>The Aruba Central Base URL should be in this format replacing it with your own: https://xxxxx-apigw.central.arubanetworks.com</List.Item>
+          <List.Item>You need to create a SSID with MPSK-AES and Cloud Auth as Authentication Server</List.Item>
+          <List.Item>
+            You need to add a MPSK Network: Global &rarr; Security &rarr; Auth&Policies &rarr; Config &rarr; Manage MPSK &rarr; Under MPSK Network add, New Configuration and select the SSDI created
+            before.
+          </List.Item>
+        </List>
       </Alert>
       <Card withBorder padding="sm" className={classes.card}>
         <Grid>
@@ -227,6 +234,9 @@ export default function ManageCentralToken() {
       </Card>
       <Card withBorder padding="sm" mt="sm" className={classes.card}>
         <Grid align="flex-end">
+          <Grid.Col span={12}>
+            <Text size="sm">The SSID will be used to encode the QR-Code. The Role should exists in your Aruba Central Group.</Text>
+          </Grid.Col>
           <Grid.Col span={3}>
             <TextInput label="Guest SSID" placeholder="Guest SSID" size="xs" defaultValue={guestSSID} onChange={(e) => setGuestSSID((e.target as HTMLInputElement).value)} />
           </Grid.Col>

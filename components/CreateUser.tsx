@@ -105,54 +105,66 @@ export default function CreateUser() {
       <Divider mt={0} mb="sm" />
 
       <Grid>
-        <Grid.Col span={{ base: 12, md: 4 }}>
-          <Card withBorder>
-            <Stack justify="space-between" mb="xs">
-              <Text fw={500}>Create user</Text>
-              <Select
-                style={{ width: "200px" }}
-                size="sm"
-                label="WiFi Network"
-                placeholder="WiFi Network"
-                data={namedMPKSList}
-                value={selectedNamedMPSK}
-                onChange={(_value: any, option) => {
-                  if (_value) {
-                    setSelectedNamedMPSK(_value);
-                  }
-                }}
-                disabled={(isLoadingNamedMPSK && statusNamedMPSK == "pending") || !!!dataGetNamedMPSK?.items?.length}
-              />
-              {listError && listError?.error && (
-                <Alert color="red" title={"Error: " + listError.error} p="xs">
-                  {listError.error_description}
-                </Alert>
-              )}
-              <TextInput size="sm" label="User email" defaultValue={username} onChange={(e) => setUsername(e.target.value)} />
-              <Button onClick={() => createMPSK()} disabled={isPendingCreateUser || (isLoadingNamedMPSK && statusNamedMPSK == "pending") || !!!dataGetNamedMPSK?.items?.length}>
-                Create User
-              </Button>
-            </Stack>
-          </Card>
-        </Grid.Col>
-        <Grid.Col span={{ base: 12, md: 6 }}>
-          {password && !isError && (
-            <Card withBorder>
-              <Group justify="space-between" mb="xs">
-                <Text fw={500}>User created</Text>
-              </Group>
-              <Text>User Name: {createdUser?.name}</Text>
-              <Text>Status: {createdUser?.status}</Text>
-              <Text>WiFi Network: {guestSSID}</Text>
-              <Text>Access Code: {password}</Text>
-              <Center>
-                <Qr password={password} guestSSID={guestSSID} />
-              </Center>
-            </Card>
+        <Grid.Col span={12}>
+          {!isLoadingNamedMPSK && statusNamedMPSK == "success" && namedMPKSList.length == 0 && (
+            <Alert title="No MPSK networks" color="yellow">
+              No MPSK Networks. You need to add a MPSK Network: Global &rarr; Security &rarr; Auth&Policies &rarr; Config &rarr; Manage MPSK &rarr; Under MPSK Network add, New Configuration and select
+              the SSDI created before.
+            </Alert>
           )}
-          {statusCreateUser == "pending" && <QrSkeleton />}
-          {isError && <ErrorUser error_data={errorData} />}
         </Grid.Col>
+        {namedMPKSList.length > 0 && (
+          <>
+            <Grid.Col span={{ base: 12, md: 4 }}>
+              <Card withBorder>
+                <Stack justify="space-between" mb="xs">
+                  <Text fw={500}>Create user</Text>
+                  <Select
+                    style={{ width: "200px" }}
+                    size="sm"
+                    label="WiFi Network"
+                    placeholder="WiFi Network"
+                    data={namedMPKSList}
+                    value={selectedNamedMPSK}
+                    onChange={(_value: any, option) => {
+                      if (_value) {
+                        setSelectedNamedMPSK(_value);
+                      }
+                    }}
+                    disabled={(isLoadingNamedMPSK && statusNamedMPSK == "pending") || !!!dataGetNamedMPSK?.items?.length}
+                  />
+                  {listError && listError?.error && (
+                    <Alert color="red" title={"Error: " + listError.error} p="xs">
+                      {listError.error_description}
+                    </Alert>
+                  )}
+                  <TextInput size="sm" label="User email" defaultValue={username} onChange={(e) => setUsername(e.target.value)} />
+                  <Button onClick={() => createMPSK()} disabled={isPendingCreateUser || (isLoadingNamedMPSK && statusNamedMPSK == "pending") || !!!dataGetNamedMPSK?.items?.length}>
+                    Create User
+                  </Button>
+                </Stack>
+              </Card>
+            </Grid.Col>
+            <Grid.Col span={{ base: 12, md: 6 }}>
+              {password && !isError && (
+                <Card withBorder>
+                  <Group justify="space-between" mb="xs">
+                    <Text fw={500}>User created</Text>
+                  </Group>
+                  <Text>User Name: {createdUser?.name}</Text>
+                  <Text>Status: {createdUser?.status}</Text>
+                  <Text>WiFi Network: {guestSSID}</Text>
+                  <Text>Access Code: {password}</Text>
+                  <Center>
+                    <Qr password={password} guestSSID={guestSSID} />
+                  </Center>
+                </Card>
+              )}
+              {statusCreateUser == "pending" && <QrSkeleton />}
+              {isError && <ErrorUser error_data={errorData} />}
+            </Grid.Col>
+          </>
+        )}
       </Grid>
     </>
   );
