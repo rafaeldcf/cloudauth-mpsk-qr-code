@@ -135,7 +135,7 @@ export default function ManageCentralToken() {
       temp.guest_role = guestRole;
       temp.guest_ssid = guestSSID;
       //setTokensParams(temp);
-      Cookies.set("central-auth-token", JSON.stringify(temp));
+      Cookies.set("central-auth-token", JSON.stringify(temp), { expires: 90 });
       router.refresh();
     }
   };
@@ -146,7 +146,7 @@ export default function ManageCentralToken() {
       const cookieJSON = JSON.parse(currentCookies);
       cookieJSON.guest_role = guestRole;
       cookieJSON.guest_ssid = guestSSID;
-      Cookies.set("central-auth-token", JSON.stringify(cookieJSON));
+      Cookies.set("central-auth-token", JSON.stringify(cookieJSON), { expires: 90 });
     }
   };
 
