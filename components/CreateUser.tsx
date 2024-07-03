@@ -7,21 +7,13 @@ import { IconUserPlus } from "@tabler/icons-react";
 import QrSkeleton from "./newUser/QrSkeleton";
 import { useCreateUser } from "@/utils/requests/users";
 import ErrorUser from "./newUser/ErrorUser";
-import Cookies from "js-cookie";
+import UserRoles from "./newUser/UserRoles";
 
 interface listError {
   error?: string;
   error_description?: string;
 }
 
-function isJsonString(str: string) {
-  try {
-    JSON.parse(str);
-  } catch (e) {
-    return false;
-  }
-  return true;
-}
 export default function CreateUser() {
   const { data: dataGetNamedMPSK, status: statusNamedMPSK, isLoading: isLoadingNamedMPSK } = useGetNamedMPSK();
 
@@ -38,21 +30,8 @@ export default function CreateUser() {
 
   const { mutateAsync: mutateAsyncCreateUser, status: statusCreateUser, isPending: isPendingCreateUser } = useCreateUser();
 
-  const lectureCookies = Cookies.get("central-auth-token");
-
   useEffect(() => {
-    if (lectureCookies && isJsonString(lectureCookies)) {
-      const cookieJSON = JSON.parse(lectureCookies);
-      if (cookieJSON.guest_ssid) {
-        setGuestSSID(cookieJSON.guest_ssid);
-      }
-      if (cookieJSON.guest_role) {
-        setGuestRole(cookieJSON.guest_role);
-      }
-    }
-  }, [lectureCookies]);
-
-  useEffect(() => {
+    //console.log(dataGetNamedMPSK);
     if (dataGetNamedMPSK?.error) {
       console.log("hay que tratar renovar el token");
       setListError(dataGetNamedMPSK);
@@ -68,6 +47,7 @@ export default function CreateUser() {
 
         if (sal.length == 1) {
           setSelectedNamedMPSK(sal[0].value);
+          setGuestSSID(sal[0].label);
         }
       }
     }
@@ -90,6 +70,7 @@ export default function CreateUser() {
       setIsError(true);
       setErrorData(resultado.data);
     } else {
+      setIsError(false);
       setPassword(resultado.data.mpsk);
       setCreatedUser(resultado.data);
       setErrorData({});
@@ -129,15 +110,18 @@ export default function CreateUser() {
                     onChange={(_value: any, option) => {
                       if (_value) {
                         setSelectedNamedMPSK(_value);
+                        setGuestSSID(option.label);
                       }
                     }}
                     disabled={(isLoadingNamedMPSK && statusNamedMPSK == "pending") || !!!dataGetNamedMPSK?.items?.length}
                   />
+                  <UserRoles user_role={guestSSID} setGuestRole={setGuestRole} />
                   {listError && listError?.error && (
                     <Alert color="red" title={"Error: " + listError.error} p="xs">
                       {listError.error_description}
                     </Alert>
                   )}
+
                   <TextInput size="sm" label="User email" defaultValue={username} onChange={(e) => setUsername(e.target.value)} />
                   <Button onClick={() => createMPSK()} disabled={isPendingCreateUser || (isLoadingNamedMPSK && statusNamedMPSK == "pending") || !!!dataGetNamedMPSK?.items?.length}>
                     Create User
