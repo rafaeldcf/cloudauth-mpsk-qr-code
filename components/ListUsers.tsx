@@ -105,7 +105,8 @@ export default function ListUsers() {
       )}
       {!isLoadingUsers && statusUsers == "success" && data1?.data?.items?.length > 0 && <ListUsersTable dataUsers={data1} namedMPSK={selectedNamedMPSK} />}
       {!isLoadingUsers && statusUsers == "success" && data1?.data?.items?.length == 0 && <ListUsersNoData />}
-      {!isLoadingUsers && statusUsers == "success" && namedMPKSList.length == 0 && (
+
+      {statusNamedMPSK == "success" && namedMPKSList.length == 0 && (
         <Alert title="No MPSK networks" color="yellow">
           No MPSK Networks. You need to add a MPSK Network: Global &rarr; Security &rarr; Auth&Policies &rarr; Config &rarr; Manage MPSK &rarr; Under MPSK Network add, New Configuration and select the
           SSDI created before.
