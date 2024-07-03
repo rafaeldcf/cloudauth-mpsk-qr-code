@@ -157,7 +157,7 @@ export default function ManageCentralToken() {
         <Title order={3}>Aruba Central Configuration</Title>
       </Group>
       <Divider mt={0} mb="sm" />
-      <Alert title="API Configuration" icon={<IconInfoCircle />} variant="light" color="green" p="sm" radius="md" mb="sm">
+      <Alert title="API Configuration" icon={<IconInfoCircle />} variant="light" color="yellow" p="sm" radius="md" mb="sm">
         <Text size="sm">
           Rest-API configuration to integrate Aruba Central. All information it´s available in your Aruba Central account: Global Settings &rarr; Organization &rarr; Platform Integration &rarr; Rest
           API.
@@ -170,8 +170,12 @@ export default function ManageCentralToken() {
             &#x22;credential_id&#x22;:&#x22;xxxxx&#x22;, &#x22;expires_in&#x22;:xxxxx, &#x22;id&#x22;:&#x22;xxxxx&#x22;, &#x22;refresh_token&#x22;:&#x22;xxxxx&#x22;, &#x22;scope&#x22;:&#x22;all&#x22;,
             &#x22;token_type&#x22;:&#x22;bearer&#x22; &#125;
           </Text>
-          <List.Item>The Aruba Central Base URL should be in this format replacing it with your own: https://xxxxx-apigw.central.arubanetworks.com</List.Item>
-          <List.Item>You need to create a SSID with MPSK-AES and Cloud Auth as Authentication Server</List.Item>
+          <List.Item>
+            The Aruba Central Base URL format: <strong>https://xxxxx-apigw.central.arubanetworks.com</strong>
+          </List.Item>
+          <List.Item>
+            You need to create a SSID with <strong>MPSK-AES</strong> and <strong>Cloud Auth</strong> as Authentication Server
+          </List.Item>
           <List.Item>
             You need to add a MPSK Network: Global &rarr; Security &rarr; Auth&Policies &rarr; Config &rarr; Manage MPSK &rarr; Under MPSK Network add, New Configuration and select the SSDI created
             before.
@@ -206,13 +210,6 @@ export default function ManageCentralToken() {
                   style={{ width: "100%" }}
                 />
               </Grid.Col>
-              {/*
-                
-              <Grid.Col span={9}>
-                <TextInput label="Aruba Central Base URL" placeholder="Aruba Central Base Id" size="xs" value={centralURL} onChange={(e) => setCentralURL((e.target as HTMLInputElement).value)} />
-              </Grid.Col>
-              <Grid.Col span={3}></Grid.Col>
-              */}
             </Grid>
           </Grid.Col>
           <Grid.Col span={{ base: 12, md: 3 }}>
@@ -232,6 +229,9 @@ export default function ManageCentralToken() {
           </Grid.Col>
         </Grid>
       </Card>
+      {/*
+
+        
       <Card withBorder padding="sm" mt="sm" className={classes.card}>
         <Grid align="flex-end">
           <Grid.Col span={12}>
@@ -250,6 +250,7 @@ export default function ManageCentralToken() {
           </Grid.Col>
         </Grid>
       </Card>
+      */}
     </>
   );
 }
