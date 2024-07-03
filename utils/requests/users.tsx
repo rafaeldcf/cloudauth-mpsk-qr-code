@@ -5,7 +5,6 @@ export function useGetUsers({ namedMPSK }: { namedMPSK: any }) {
     queryKey: ["getUsers", namedMPSK],
     queryFn: async () => {
       const response = await fetch("/api/central/users?named_mpsk=" + namedMPSK, { method: "GET" });
-      //console.log(response);
       if (!response.ok) {
         throw new Error("Network response was not ok");
       }
